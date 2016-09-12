@@ -1,0 +1,15 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../juicy-filedrop/juicy-filedrop.html">
+<link rel="import" href="../juicy-markdown/juicy-markdown.html">
+
+</head><body><dom-module id="juicy-markdown-editor">
+	<style>:host{display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-direction:row;-webkit-flex-direction:row;flex-direction:row;}#fileDropPanel{-webkit-flex:1;flex:1;-ms-flex:1;}#previewPanel{-webkit-flex:1;flex:1;-ms-flex:1;padding:10px;overflow:auto;border-left:1px solid #dddddd;}#fileDropPanel textarea{width:100%;border:0px;margin:0px;padding:10px;resize:none;background-color:transparent;}</style>
+	<template>
+		<juicy-filedrop id="fileDropPanel" url="{{uploadurl}}" customheader="{{customheader}}">
+			<textarea id="inputBox" value="{{value::input}}" placeholder="{{placeholder}}"></textarea>
+		</juicy-filedrop>
+		<juicy-markdown id="previewPanel" value="{{value}}" ghcss="{{ghcss}}"></juicy-markdown>
+	</template>
+</dom-module>
+<script>"use strict";Polymer({is:"juicy-markdown-editor",properties:{customheader:{value:null,notify:!0},ghcss:{type:Boolean,value:!1,notify:!0},options:{type:Object,value:function(){return{}}},placeholder:{type:String,value:"",notify:!0},uploadurl:{type:String,value:"",notify:!0},value:{type:String,value:"",notify:!0}},ready:function(){this.$.fileDropPanel.addEventListener("fileUploading",this.onFileUploading.bind(this)),this.$.fileDropPanel.addEventListener("fileUploaded",this.onFileUploaded.bind(this)),this.$.fileDropPanel.addEventListener("fileUploadError",this.onFileUploadError.bind(this))},onFileUploading:function(i){i.stopPropagation();var e=i.detail;this.addUploadingMark(e.name)},onFileUploaded:function(i){i.stopPropagation();var e=i.detail;this.replaceUploadingMark(e.name,e)},onFileUploadError:function(i){var e=i.detail;this.removeUploadingMark(e.name)},addUploadingMark:function(i){var e=this.$.inputBox.selectionStart,t=this.$.inputBox.selectionEnd,a=this.value.substring(0,e),n=this.value.substring(t),l="![Uploading "+i+" . . .]()";this.value=a+l+n},replaceUploadingMark:function(i,e){var t="![Uploading "+e.name+" . . .](",a="!["+e.name+"]("+e.url+")",n=this.value.indexOf(t),l=this.value.indexOf(")",n+t.length);if(n!=-1&&l!=-1){var o=this.value.substring(0,n),r=this.value.substring(l+1);this.value=o+a+r}else this.value=this.value+a},removeUploadingMark:function(i){var e="![Uploading "+i+" . . .](",t=this.value.indexOf(e),a=this.value.indexOf(")",t+e.length);if(t!=-1&&a!=-1){var n=this.value.substring(0,t),l=this.value.substring(a+1);this.value=n+l}}});</script>
+</body></html>

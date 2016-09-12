@@ -1,0 +1,36 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-overlay/core-overlay.html">
+<link rel="import" href="markdown-preview.html">
+
+
+</head><body><polymer-element name="markdown-editor" attributes="value" noscript="">
+    <template>
+        <link rel="stylesheet" href="../codemirror/lib/codemirror.css">
+        <link rel="stylesheet" type="text/css" href="markdown-editor.css">
+        <div id="container" layout="" horizontal="">
+            <div class="block">
+                <span id="help" on-click="{{ help }}">?</span>
+                <h2 class="info">Markdown</h2>
+                <div id="editor"></div>
+            </div>
+            <div class="block">
+                <h2 class="info">Preview</h2>
+                <markdown-preview id="preview" value="{{ value }}">
+            </markdown-preview></div>
+        </div>
+        <core-overlay backdrop="true" id="help-dialog">
+            <div id="help-dialog-content">
+                <span class="close" core-overlay-toggle="">X</span>
+                <h2>Help</h2>
+                <div><span class="markdown"># heading</span> : H1 heading</div>
+                <div><span class="markdown">## heading</span> : H2 heading</div>
+                <div><span class="markdown">* item</span> : unordered list</div>
+                <div><span class="markdown">1. item</span> : orderd list</div>
+            </div>
+        </core-overlay>
+    </template>
+
+    <script src="../codemirror/lib/codemirror.js"></script>
+    <script src="../codemirror/mode/markdown/markdown.js"></script>
+    <script>Polymer("markdown-editor",{observe:{"model.value":"modelValueChanged"},value:"",ready:function(){var e=this.shadowRoot.getElementById("editor"),o=CodeMirror(e,{mode:"markdown",lineNumbers:!0}),t=this;o.on("changes",function(){t.model.setValue(o.getValue())}),this.modelValueChanged=function(e,d){o.getValue()!=d&&o.setValue(d),t.value=d},this.help=function(){t.shadowRoot.getElementById("help-dialog").opened=!0},this.model=new MarkdownEditorModel(this.innerHTML)},valueChanged:function(e,o){this.model.setValue(o)}});var MarkdownEditorModel=function(e){this.value=e};MarkdownEditorModel.prototype.setValue=function(e){e!=this.value&&(this.value=e)};</script>
+</polymer-element></body></html>

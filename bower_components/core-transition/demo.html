@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+  <title>core-transition</title>
+
+  <script src="../platform/platform.js"></script>
+
+  <link href="core-transition-css.html" rel="import">
+
+  <style>#animate-me{background-color:lime;position:fixed;top:100px;width:100%;height:100%;}</style>
+
+</head>
+<body unresolved="">
+
+  <div id="animate-me" hidden=""></div>
+
+  <select id="sel" onchange="setup()">
+    <option value="core-transition-fade" selected="">core-transition-fade</option>
+    <option value="core-transition-center">core-transition-center</option>
+    <option value="core-transition-top">core-transition-top</option>
+    <option value="core-transition-bottom">core-transition-bottom</option>
+    <option value="core-transition-left">core-transition-left</option>
+    <option value="core-transition-right">core-transition-right</option>
+  </select>
+
+  <button onclick="stuff()">toggle</button>
+
+  <script>function getMeta(){return meta||(meta=document.createElement("core-meta"),meta.type="transition"),meta}function setup(){var e=document.getElementById("animate-me");transition&&transition.teardown(e);var t=document.getElementById("sel").selectedOptions[0].value;transition=getMeta().byId(t),transition.setup(e)}function stuff(){var e=document.getElementById("animate-me");state.opened=!state.opened,transition.go(e,state)}document.addEventListener("polymer-ready",function(){setup(),document.getElementById("animate-me").removeAttribute("hidden")});var meta,transition,state={opened:!1};</script>
+
+
+</body></html>

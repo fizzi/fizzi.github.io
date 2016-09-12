@@ -1,0 +1,16 @@
+<html><head><link rel="import" href="core-transition.html">
+
+</head><body><polymer-element name="core-transition-css" extends="core-transition" attributes="transitionType">
+<template>
+  <link no-shim="" rel="stylesheet" href="core-transition-overlay.css">
+</template>
+<script>Polymer("core-transition-css",{baseClass:"core-transition",openedClass:"core-opened",closedClass:"core-closed",completeEventName:"transitionend",publish:{transitionType:null},registerCallback:function(s){this.transitionStyle=s.templateContent().firstElementChild},fetchTemplate:function(){return null},go:function(s,t){void 0!==t.opened&&this.transitionOpened(s,t.opened)},setup:function(s){s._hasTransitionStyle||(s.shadowRoot||(s.createShadowRoot().innerHTML="<content></content>"),this.installScopeStyle(this.transitionStyle,"transition",s.shadowRoot),s._hasTransitionStyle=!0),s.classList.add(this.baseClass),this.transitionType&&s.classList.add(this.baseClass+"-"+this.transitionType)},teardown:function(s){s.classList.remove(this.baseClass),this.transitionType&&s.classList.remove(this.baseClass+"-"+this.transitionType)},transitionOpened:function(s,t){this.listenOnce(s,this.completeEventName,function(){s.classList.toggle(this.revealedClass,t),t||s.classList.remove(this.closedClass),this.complete(s)}),s.classList.toggle(this.openedClass,t),s.classList.toggle(this.closedClass,!t)}});</script>
+</polymer-element>
+
+<core-transition-css id="core-transition-fade"></core-transition-css>
+<core-transition-css id="core-transition-center" transitiontype="center"></core-transition-css>
+<core-transition-css id="core-transition-top" transitiontype="top"></core-transition-css>
+<core-transition-css id="core-transition-bottom" transitiontype="bottom"></core-transition-css>
+<core-transition-css id="core-transition-left" transitiontype="left"></core-transition-css>
+<core-transition-css id="core-transition-right" transitiontype="right"></core-transition-css>
+</body></html>
