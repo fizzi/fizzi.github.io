@@ -1,8 +1,0 @@
-<html><head></head><body><polymer-element name="core-overlay-layer">
-<template>
-  <style>:host{position:fixed;top:0;left:0;z-index:1000;display:none;}:host(.core-opened){display:block;}</style>
-  <content></content>
-</template>
-<script>!function(){Polymer("core-overlay-layer",{publish:{opened:!1},openedChanged:function(){this.classList.toggle("core-opened",this.opened)},addElement:function(e){if(this.parentNode||document.querySelector("body").appendChild(this),e.parentNode!==this){e.__contents=[];for(var t,n=e.querySelectorAll("content"),o=0,l=n.length;o<l&&(t=n[o]);o++)this.moveInsertedElements(t),this.cacheDomLocation(t),t.parentNode.removeChild(t),e.__contents.push(t);this.cacheDomLocation(e),this.updateEventController(e);var r=this.makeHost();r.shadowRoot.appendChild(e),e.__host=r}},makeHost:function(){var e=document.createElement("overlay-host");return e.createShadowRoot(),this.appendChild(e),e},moveInsertedElements:function(e){var t=e.getDistributedNodes(),n=e.parentNode;e.__contents=[];for(var o,l=0,r=t.length;l<r&&(o=t[l]);l++)this.cacheDomLocation(o),this.updateEventController(o),e.__contents.push(o),n.appendChild(o)},updateEventController:function(e){e.eventController=this.element.findController(e)},removeElement:function(e){e.eventController=null,this.replaceElement(e);var t=e.__host;t&&t.parentNode.removeChild(t)},replaceElement:function(e){if(e.__contents){for(var t,n=0,o=e.__contents;t=o[n];n++)this.replaceElement(t);e.__contents=null}if(e.__parentNode){var l=e.__nextElementSibling&&e.__nextElementSibling===e.__parentNode?e.__nextElementSibling:null;e.__parentNode.insertBefore(e,l)}},cacheDomLocation:function(e){e.__nextElementSibling=e.nextElementSibling,e.__parentNode=e.parentNode}})}();</script>
-</polymer-element>
-</body></html>
